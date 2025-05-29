@@ -1,0 +1,6 @@
+debug_print("test")
+require("aviutl")
+local num1, num2 = 1, 2
+local ans = aviutl.test_func(num1, num2)
+
+debug_print(ans)
