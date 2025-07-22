@@ -75,10 +75,10 @@ type
   lua_Integer* = cint
   LUA_INTEGER* = lua_Integer
   lua_State* {.importc, incompleteStruct.} = object
-  lua_Alloc* = proc (ud: ref, `ptr`: ref, osize: csize_t, nsize: csize_t): ref
-  lua_CFunction* = proc (L: ref lua_State): cint
-  lua_Reader* = proc (L: ref lua_State, ud: ref, sz: ref csize_t): cstring
-  lua_Writer* = proc (L: ref lua_State, p: ref, sz: csize_t, ud: pointer): cint
+  lua_Alloc* = proc (ud: ref, `ptr`: ref, osize: csize_t, nsize: csize_t): ref {.cdecl.}
+  lua_CFunction* = proc (L: ref lua_State): cint {.cdecl.}
+  lua_Reader* = proc (L: ref lua_State, ud: ref, sz: ref csize_t): cstring  {.cdecl.}
+  lua_Writer* = proc (L: ref lua_State, p: ref, sz: csize_t, ud: ref): cint {.cdecl.}
 
 proc lua_newstate*(f: lua_Alloc, ud: ref): ref lua_State {.importc.}
 proc lua_close*(L: ref lua_State): void {.importc.}
