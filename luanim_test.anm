@@ -1,0 +1,6 @@
+debug_print("test")
+require("luanim_test")
+local num1, num2 = 1, 2
+local ans = luanim_test.add_numbers(num1, num2)
+
+debug_print(ans)

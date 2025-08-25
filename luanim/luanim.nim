@@ -71,11 +71,11 @@ type
   LUA_INTEGER* = lua_Integer
 
   lua_State* {.importc.}= object
-  lua_CFunction* = proc (L:ref lua_State):cint
+  lua_CFunction* = proc (L:ptr lua_State):cint
 
   #functions that read/write blocks when loading/dumping Lua chunks
-  lua_Reader* = proc (L:ref lua_State, ud:pointer, sz:ref cuint):cstring
-  lua_Writer* = proc (L:ref lua_State, p:pointer, sz: cuint, ud:pointer):cint
+  lua_Reader* = proc (L:ptr lua_State, ud:pointer, sz:ptr cuint):cstring
+  lua_Writer* = proc (L:ptr lua_State, p:pointer, sz: cuint, ud:pointer):cint
 
 
   #prototype for memory-allocation functions
@@ -84,23 +84,23 @@ type
 
 #import api
 #state manipulation
-proc lua_newstate*(f:lua_Alloc, ud:pointer):ref lua_State
-proc lua_close*(L:ref lua_State):void
-proc lua_newthread*(L:ref lua_State):ref lua_State
-proc lua_atpanic*(L:ref lua_State,panicf:lua_CFunction):lua_CFunction
+proc lua_newstate*(f:lua_Alloc, ud:pointer):ptr lua_State
+proc lua_close*(L:ptr lua_State):void
+proc lua_newthread*(L:ptr lua_State):ptr lua_State
+proc lua_atpanic*(L:ptr lua_State,panicf:lua_CFunction):lua_CFunction
 
 #basic stack manipulation
-proc lua_gettop*(L:ref lua_State):cint
-proc lua_settop*(L:ref lua_State, idx:cint):void
-proc lua_pushvalue*(L:ref lua_State, idx:cint):void
-proc lua_remove*(L:ref lua_State, idx:cint):void
-proc lua_insert*(L:ref lua_State, idx:cint):void
-proc lua_replace*(L:ref lua_State, idx:cint):void
-proc lua_checkstack*(L:ref lua_State, sz:cint):cint
-proc lua_xmove*(`from`:ref lua_State, to:ref lua_State, n:cint):void
+proc lua_gettop*(L:ptr lua_State):cint
+proc lua_settop*(L:ptr lua_State, idx:cint):void
+proc lua_pushvalue*(L:ptr lua_State, idx:cint):void
+proc lua_remove*(L:ptr lua_State, idx:cint):void
+proc lua_insert*(L:ptr lua_State, idx:cint):void
+proc lua_replace*(L:ptr lua_State, idx:cint):void
+proc lua_checkstack*(L:ptr lua_State, sz:cint):cint
+proc lua_xmove*(`from`:ptr lua_State, to:ptr lua_State, n:cint):void
 
-proc lua_tonumber*(L:ref lua_State, idx:cint):lua_Number
-proc lua_pushinteger*(L:ref lua_State, n:lua_Integer):void
+proc lua_tonumber*(L:ptr lua_State, idx:cint):lua_Number
+proc lua_pushinteger*(L:ptr lua_State, n:lua_Integer):void
 
 {.pop.}
 
